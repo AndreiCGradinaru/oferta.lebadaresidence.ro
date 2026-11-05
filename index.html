@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ultimele 8 locuințe · Lebada Lake Residence</title>
+<meta name="description" content="Ultimele 8 locuințe din blocurile A4 și A5, Lebada Lake Residence, Pantelimon. Prețuri reduse de la 65.000 € + TVA, ofertă valabilă 9 noiembrie – 18 decembrie 2026.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ultimele 8 locuințe la Lebada Lake Residence">
+<meta property="og:description" content="Ultimele 8 locuințe din blocurile A4 și A5, Lebada Lake Residence, Pantelimon. Prețuri reduse de la 65.000 € + TVA, ofertă valabilă 9 noiembrie – 18 decembrie 2026.">
+<meta property="og:locale" content="ro_RO">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* Layout: lake-water band hero with the stock gauge, then a ledger of unit cards (plan + price slip), then the booking form beside the visit note. */
+:root{
+  --bg:#f3f6f6;
+  --surface:#ffffff;
+  --ink:#0f2a33;
+  --muted:#557079;
+  --line:#d3dfe1;
+  --lake:#12424f;
+  --lake-ink:#e9f3f3;
+  --reed:#b88a3e;
+  --reed-soft:#f2e7d3;
+  --ok:#2f7d5b;
+  --warn:#b0731c;
+  --sold:#8a3b3b;
+  --hatch:#dfe8e9;
+  --f-display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1a1f;--surface:#11262d;--ink:#e3eef0;--muted:#94adb3;--line:#24414a;
+  --lake:#0e3440;--lake-ink:#e3eef0;--reed:#d7aa5c;--reed-soft:#2f2717;
+  --ok:#5fbf92;--warn:#e0a34a;--sold:#d98a8a;--hatch:#1a343c;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1a1f;--surface:#11262d;--ink:#e3eef0;--muted:#94adb3;--line:#24414a;
+  --lake:#0e3440;--lake-ink:#e3eef0;--reed:#d7aa5c;--reed-soft:#2f2717;
+  --ok:#5fbf92;--warn:#e0a34a;--sold:#d98a8a;--hatch:#1a343c;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f-body)}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);font-weight:500;text-wrap:balance;margin:0;line-height:1.1}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--reed);outline-offset:2px}
+
+/* Hero */
+.hero{background:var(--lake);color:var(--lake-ink);position:relative;overflow:hidden}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none}
+.hero .wrap{position:relative;padding-block:56px 48px;display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:40px;align-items:end}
+.hero h1{font-size:clamp(40px,6.4vw,76px)}
+.hero h1 em{font-style:italic;color:var(--reed)}
+.hero p.lede{max-width:56ch;margin:18px 0 0;font-size:18px;opacity:.9}
+.hero .eyebrow{color:var(--reed);margin-bottom:18px;display:block}
+.gauge{border:1px solid color-mix(in srgb,var(--lake-ink) 25%,transparent);padding:22px;display:grid;gap:14px}
+.gauge .count{font:500 64px/1 var(--f-display)}
+.gauge .count small{font:500 18px var(--f-body);opacity:.8;margin-left:6px}
+.slots{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+.slot{height:30px;border:1px solid var(--reed);background:var(--reed)}
+.slot.rezervat{background:transparent;border-style:dashed}
+.slot.vandut{background:transparent;border-color:color-mix(in srgb,var(--lake-ink) 25%,transparent)}
+.gauge .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;opacity:.85}
+.gauge .legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px;border:1px solid var(--reed)}
+.gauge .legend .r{border-style:dashed}
+.gauge .legend .v{border-color:color-mix(in srgb,var(--lake-ink) 35%,transparent)}
+.totals{display:flex;flex-wrap:wrap;gap:28px;margin-top:28px;font-size:14px}
+.totals b{display:block;font:500 22px var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* Filters */
+.bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding-block:32px 18px}
+.bar h2{font-size:32px}
+.barnote{margin:6px 0 0;color:var(--muted);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:999px;cursor:pointer;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* Units */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;padding-bottom:48px}
+.unit{background:var(--surface);border:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;min-width:0}
+.plan{aspect-ratio:4/3;max-width:100%;width:100%;position:relative;background:#fff;border:0;border-bottom:1px solid var(--line);padding:36px 12px 30px;display:block;cursor:zoom-in}
+.plan img{width:100%;height:100%;object-fit:contain;display:block}
+.plan .ph{position:absolute;left:12px;bottom:8px;right:12px;display:flex;justify-content:space-between;gap:8px;font:500 11px/1.3 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:#3d5a63}
+.plan:hover .ph span:last-child{text-decoration:underline}
+.extra{font-size:14px;color:var(--muted);margin-top:-8px}
+.perk{justify-self:start;margin-top:-6px;font:600 13px var(--f-body);color:var(--ok);border:1px solid var(--ok);padding:4px 12px;border-radius:999px}
+.status{position:absolute;top:12px;left:12px;font:600 12px var(--f-body);padding:4px 10px;border-radius:999px;background:var(--surface);border:1px solid currentColor}
+.status.disponibil{color:var(--ok)}.status.rezervat{color:var(--warn)}.status.vandut{color:var(--sold)}
+.body{padding:20px;display:grid;gap:16px;align-content:start}
+.body .head{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.body h3{font-size:26px}
+.body .code{color:var(--muted);font-size:13px}
+.specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;margin:0}
+.specs div{border-top:1px solid var(--line);padding-top:8px;min-width:0}
+.specs dt{font-size:12px;color:var(--muted)}
+.specs dd{margin:2px 0 0;font:500 15px var(--f-mono);font-variant-numeric:tabular-nums}
+.price{background:var(--reed-soft);padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:baseline}
+.price .old{color:var(--muted);text-decoration:line-through;font:400 15px var(--f-mono)}
+.price .new{font:500 30px/1 var(--f-display);grid-column:1}
+.price .save{grid-column:2;grid-row:1/3;align-self:center;font:600 13px var(--f-body);color:var(--reed);border:1px solid var(--reed);padding:6px 10px;text-align:center;line-height:1.25}
+.price .note{grid-column:1/-1;font-size:12px;color:var(--muted)}
+.price .vat{grid-column:1/-1;font-size:15px;padding-top:6px;border-top:1px solid color-mix(in srgb,var(--reed) 35%,transparent);margin-top:4px}
+.price .vat b{font:500 17px var(--f-mono);font-variant-numeric:tabular-nums}
+.cta{border:0;background:var(--ink);color:var(--bg);padding:12px 16px;font-weight:600;cursor:pointer;width:100%}
+.cta:hover{background:var(--lake);color:var(--lake-ink)}
+.cta[disabled]{background:var(--line);color:var(--muted);cursor:not-allowed}
+.empty{padding:32px;border:1px dashed var(--line);color:var(--muted);grid-column:1/-1}
+
+/* Booking */
+.book{border-top:1px solid var(--line);padding-block:48px 64px}
+.book .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:40px}
+.book h2{font-size:36px;margin-bottom:14px}
+.book .aside p{max-width:46ch;color:var(--muted)}
+.book ol{padding-left:20px;color:var(--muted);display:grid;gap:6px}
+form{background:var(--surface);border:1px solid var(--line);padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{display:grid;gap:6px;min-width:0}
+.f.full{grid-column:1/-1}
+label{font-size:13px;font-weight:600}
+input,select,textarea{border:1px solid var(--line);background:var(--bg);padding:11px 12px;width:100%;border-radius:0}
+textarea{min-height:84px;resize:vertical}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);grid-column:1/-1}
+.check input{width:auto;margin-top:3px}
+.msg{grid-column:1/-1;font-size:14px;padding:12px 14px;border:1px solid var(--line)}
+form[hidden],.callpanel[hidden],.contact[hidden]{display:none}
+.callpanel{background:var(--lake);color:var(--lake-ink);padding:32px 28px;display:grid;gap:12px;align-content:start}
+.callpanel .eyebrow{color:var(--reed)}
+.callpanel p{margin:0;max-width:44ch;opacity:.9}
+.callpanel .bigtel{font:500 clamp(36px,6vw,54px)/1.1 var(--f-display);color:var(--lake-ink);text-decoration:none;user-select:all}
+.callpanel small{opacity:.8;font-size:14px}
+.msg.ok{border-color:var(--ok);color:var(--ok)}
+.msg.err{border-color:var(--sold);color:var(--sold)}
+
+/* Sales desk (editors only) */
+.desk{background:var(--surface);border-top:4px solid var(--reed);padding-block:40px 56px}
+.desk h2{font-size:28px;margin-bottom:6px}
+.desk p{color:var(--muted);margin:0 0 20px}
+.tbl{overflow-x:auto;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stockrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:28px}
+.stockrow label{display:grid;gap:6px;font-weight:500;border:1px solid var(--line);padding:10px}
+
+dialog.lb{border:0;padding:0;max-width:min(1100px,calc(100vw - 32px));width:100%;max-height:calc(100vh - 32px);background:var(--surface);color:var(--ink)}
+dialog.lb::backdrop{background:rgba(8,24,30,.7)}
+.lb .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.lb h3{font-size:22px}
+.lb .x{border:1px solid var(--line);background:var(--bg);padding:6px 12px;cursor:pointer}
+.lb .img{background:#fff;padding:16px;overflow:auto;max-height:calc(100vh - 220px)}
+.lb .img img{display:block;margin:0 auto;max-width:100%;max-height:calc(100vh - 252px);object-fit:contain}
+.lb ol{margin:0;padding:14px 18px 18px 18px;list-style:none;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
+.lb ol b{font-family:var(--f-mono);font-weight:500;color:var(--muted);margin-right:4px}
+footer{padding-block:28px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px}
+.deadline{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin-top:22px;padding:10px 14px;border:1px solid var(--reed);font-size:15px}
+.deadline b{font:500 15px var(--f-mono);color:var(--reed)}
+.contact{margin-top:22px;padding:16px 18px;border:1px solid var(--line);background:var(--surface);display:grid;gap:4px;max-width:46ch}
+.contact .tel{font:500 26px/1.2 var(--f-display);color:var(--ink);text-decoration:none;user-select:all}
+.contact small{color:var(--muted)}
+
+@media (max-width:860px){
+  .hero .wrap,.book .wrap{grid-template-columns:1fr}
+  form{grid-template-columns:1fr}
+}
+@media (max-width:420px){.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.hero canvas{display:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="water" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Lebada Lake Residence · Pantelimon · Blocurile A4 și A5, finalizate</span>
+      <h1>Ultimele <em>8</em> locuințe din primele două blocuri</h1>
+      <p class="lede">Clădiri gata, apartamente de văzut pe loc. Am redus prețul la toate unitățile rămase, de la garsonieră la penthouse-ul de la etajul 7 cu terasă de 118 m².</p>
+      <div class="deadline"><span>Ofertă valabilă <strong>9 noiembrie – 18 decembrie 2026</strong></span><b id="daysLeft"></b></div>
+      <div class="totals">
+        <div><span>Reducere medie</span><b id="tAvg">−14%</b></div>
+        <div><span>Economie maximă</span><b id="tMax">€69.000</b></div>
+        <div><span>Preț de la</span><b id="tFrom">€65.000</b></div>
+      </div>
+    </div>
+    <div class="gauge" aria-live="polite">
+      <span class="eyebrow">Stoc rămas</span>
+      <div class="count"><span id="cAvail">8</span><small>din 8 disponibile</small></div>
+      <div class="slots" id="slots"></div>
+      <div class="legend"><span><i></i>Disponibil</span><span><i class="r"></i>Rezervat</span><span><i class="v"></i>Vândut</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="bar">
+      <div><h2>Unitățile</h2><p class="barnote">Loc de parcare și boxă disponibile, contra cost.</p></div>
+      <div class="chips" role="group" aria-label="Filtrează după tip">
+        <button class="chip" type="button" data-f="all" aria-pressed="true">Toate</button>
+        <button class="chip" type="button" data-f="Garsonieră" aria-pressed="false">Garsonieră</button>
+        <button class="chip" type="button" data-f="3 camere" aria-pressed="false">3 camere</button>
+        <button class="chip" type="button" data-f="Penthouse" aria-pressed="false">Penthouse</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <section class="book" id="programare">
+    <div class="wrap">
+      <div class="aside">
+        <span class="eyebrow" style="color:var(--reed)">Vizionare</span>
+        <h2>Vino să vezi apartamentul</h2>
+        <p>Alege unitatea și o zi care îți convine, iar noi confirmăm ora la telefon.</p>
+        <ol>
+          <li>Ne suni sau ne lași o cerere.</li>
+          <li>Confirmăm telefonic ziua și ora.</li>
+          <li>Vizitezi apartamentul și primești prezentarea în PDF.</li>
+        </ol>
+        <div class="contact" id="contactSmall" hidden>
+          <small>Preferi să suni direct?</small>
+          <a class="tel" href="tel:+40721230742">0721 230 742</a>
+          <small>Andrei Grădinaru · Lebada Lake Residence</small>
+        </div>
+      </div>
+      <div class="callpanel" id="callPanel">
+        <span class="eyebrow">Programare la telefon</span>
+        <p>Sună-ne și stabilim împreună ziua și ora vizionării. Spune-ne ce unitate te interesează: blocul și numărul apartamentului de pe card.</p>
+        <a class="bigtel" href="tel:+40721230742">0721 230 742</a>
+        <small>Andrei Grădinaru · Lebada Lake Residence</small>
+        <small>Detalii despre ansamblu pe <a href="https://www.lebadaresidence.ro" target="_blank" rel="noopener">www.lebadaresidence.ro</a></small>
+      </div>
+      <form id="form" novalidate hidden>
+        <div class="f"><label for="nume">Nume și prenume</label><input id="nume" name="nume" autocomplete="name" required></div>
+        <div class="f"><label for="telefon">Telefon</label><input id="telefon" name="telefon" type="tel" autocomplete="tel" required placeholder="07xx xxx xxx"></div>
+        <div class="f full"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email"></div>
+        <div class="f full"><label for="unitate">Unitatea dorită</label><select id="unitate" name="unitate" required></select></div>
+        <div class="f"><label for="data">Data preferată</label><input id="data" name="data" type="date" required></div>
+        <div class="f"><label for="interval">Interval</label>
+          <select id="interval" name="interval"><option>10:00 – 12:00</option><option>12:00 – 14:00</option><option>14:00 – 16:00</option><option>16:00 – 18:00</option><option>Sâmbătă, oricând</option></select></div>
+        <div class="f full"><label for="mesaj">Întrebări (opțional)</label><textarea id="mesaj" name="mesaj" placeholder="De exemplu: finanțare, loc de parcare, termen de mutare"></textarea></div>
+        <label class="check"><input id="gdpr" type="checkbox" required> Sunt de acord să fiu contactat pentru programarea vizionării. Datele sunt folosite doar în acest scop.</label>
+        <button class="cta" type="submit" id="send" style="grid-column:1/-1">Trimite cererea de vizionare</button>
+        <div class="msg" id="msg" hidden></div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<dialog class="lb" id="lb" aria-labelledby="lbT">
+  <div class="top"><h3 id="lbT"></h3><button class="x" type="button" id="lbX">Închide</button></div>
+  <div class="img"><img id="lbImg" alt=""></div>
+  <ol id="lbLeg"></ol>
+</dialog>
+
+<footer><div class="wrap"><span>Prețuri în euro. Prețul afișat mare e fără TVA; prețul final include TVA 21%. Ofertă valabilă între 09.11.2026 și 18.12.2026, în limita stocului. Loc de parcare și boxă disponibile, contra cost. Suprafețele sunt cele din releveele cadastrale; suprafața utilă totală include terasele și grădinile aferente.</span><span><a href="https://www.lebadaresidence.ro" target="_blank" rel="noopener">www.lebadaresidence.ro</a> · 0721 230 742</span></div></footer>
+
+<script>
+const UNITS=[
+  {id:"A4-6",bloc:"A4",ap:"6",tip:"3 camere",etaj:"Parter",util:72.7,ext:"24,6 + 36,3",extL:"Terasă + grădină",total:133.6,constr:152.8,lista:230000,nou:195000,rooms:"2 dormitoare · 2 băi · grădină privată",
+   legend:"1 Hol 11,3 · 2 Baie 2,5 · 3 Bucătărie 6,3 · 4 Cameră de zi 23,3 · 5 Dormitor 11,9 · 6 Dormitor 13,0 · 7 Baie 4,4 · 8 Terasă 24,6 · 9 Grădină 36,3"},
+  {id:"A4-7",bloc:"A4",ap:"7",tip:"3 camere",etaj:"Parter",util:72.6,ext:"24,3 + 36,3",extL:"Terasă + grădină",total:133.2,constr:152.9,lista:230000,nou:195000,rooms:"2 dormitoare · 2 băi · grădină privată",
+   legend:"1 Hol 10,4 · 2 Baie 2,5 · 3 Bucătărie 6,6 · 4 Cameră de zi 23,4 · 5 Dormitor 11,7 · 6 Dormitor 13,4 · 7 Baie 4,6 · 8 Terasă 24,3 · 9 Grădină 36,3"},
+  {id:"A4-405",bloc:"A4",ap:"405",tip:"Penthouse",etaj:"Etaj 4",util:70.4,ext:"100,5",extL:"Terasă",total:170.9,constr:191.4,lista:315000,nou:265000,rooms:"2 dormitoare · 2 băi · terasă de 100 m²",
+   legend:"1 Hol 9,3 · 2 Baie 2,5 · 3 Baie 4,5 · 4 Dormitor 12,5 · 5 Dormitor 12,0 · 6 Cameră de zi 22,2 · 7 Bucătărie 7,4 · 8 Terasă 100,5"},
+  {id:"A4-406",bloc:"A4",ap:"406",tip:"Penthouse",etaj:"Etaj 4",util:70.2,ext:"100,0",extL:"Terasă",total:170.2,constr:190.3,lista:340000,nou:290000,rooms:"2 dormitoare · 2 băi · terasă de 100 m²",perk:"Mobilat și utilat",
+   legend:"1 Hol 9,1 · 2 Baie 2,5 · 3 Baie 4,4 · 4 Dormitor 12,5 · 5 Dormitor 12,1 · 6 Cameră de zi 22,4 · 7 Bucătărie 7,2 · 8 Terasă 100,0"},
+  {id:"A4-702",bloc:"A4",ap:"702",tip:"Penthouse",etaj:"Etaj 7",util:124.4,ext:"118,0",extL:"Terasă",total:242.4,constr:277.6,lista:599000,nou:530000,rooms:"3 dormitoare + office · dressing · 2 băi + WC de serviciu",
+   legend:"1 Cameră de zi 29,0 · 2 Bucătărie 11,8 · 3 Hol intrare 9,0 · 4 Dormitor 9,8 · 5 Dormitor 10,2 · 6 Hol 5,6 · 7 WC serviciu 2,2 · 8 Baie 4,8 · 9 Baie 5,9 · 10 Dressing 4,3 · 11 Dormitor 22,1 · 12 Office 9,7 · 13 Terasă 118,0"},
+  {id:"A5-8",bloc:"A5",ap:"8",tip:"Garsonieră",etaj:"Parter",util:32.5,ext:"10,1",extL:"Grădină",total:42.6,constr:50.4,lista:75000,nou:65000,rooms:"Cameră de zi 23,2 m² · grădină privată",
+   legend:"1 Hol 2,5 · 2 Bucătărie 2,5 · 3 Cameră de zi 23,2 · 4 Baie 4,3 · 5 Grădină 10,1"},
+  {id:"A5-7",bloc:"A5",ap:"7",tip:"3 camere",etaj:"Parter",util:74.4,ext:"41,0",extL:"Terasă",total:115.4,constr:133.3,lista:210000,nou:185000,rooms:"2 dormitoare · 2 băi · terasă de 41 m²",
+   legend:"1 Hol 11,2 · 2 Baie 2,6 · 3 Bucătărie 6,8 · 4 Cameră de zi 23,9 · 5 Dormitor 12,1 · 6 Dormitor 13,3 · 7 Baie 4,5 · 8 Terasă 41,0"},
+  {id:"A5-405",bloc:"A5",ap:"405",tip:"Penthouse",etaj:"Etaj 4",util:71.7,ext:"101,1",extL:"Terasă",total:172.8,constr:193.0,lista:300000,nou:250000,rooms:"2 dormitoare · 2 băi · terasă de 101 m²",
+   legend:"1 Hol 8,1 · 2 Baie 2,9 · 3 Baie 4,9 · 4 Dormitor 13,6 · 5 Dormitor 11,9 · 6 Cameră de zi 21,9 · 7 Bucătărie 8,4 · 8 Terasă 101,1"}
+];
+const STATUS_LABEL={disponibil:"Disponibil",rezervat:"Rezervat",vandut:"Vândut"};
+const status={}; UNITS.forEach(u=>status[u.id]="disponibil");
+let filter="all";
+const eur=n=>"€"+Math.round(n).toLocaleString("ro-RO");
+const $=s=>document.querySelector(s);
+
+/* Floor plans cropped from the cadastral surveys (drawing only, no cadastral data or signatures) */
+const planSrc=u=>"planuri/"+u.id+".jpg";
+const m2=n=>n.toFixed(1).replace(".",",");
+
+function renderTotals(){
+  const avail=UNITS.filter(u=>status[u.id]!=="vandut");
+  const pool=avail.length?avail:UNITS;
+  const sumL=pool.reduce((a,u)=>a+u.lista,0),sumN=pool.reduce((a,u)=>a+u.nou,0);
+  $("#tAvg").textContent="−"+Math.round((1-sumN/sumL)*100)+"%";
+  $("#tMax").textContent=eur(Math.max(...pool.map(u=>u.lista-u.nou)));
+  $("#tFrom").textContent=eur(Math.min(...pool.map(u=>u.nou)));
+  const n=UNITS.filter(u=>status[u.id]==="disponibil").length;
+  $("#cAvail").textContent=n;
+  $("#slots").innerHTML=UNITS.map(u=>`<span class="slot ${status[u.id]}" title="${u.bloc} · ap. ${u.ap}: ${STATUS_LABEL[status[u.id]]}"></span>`).join("");
+}
+
+function renderGrid(){
+  const list=UNITS.filter(u=>filter==="all"||u.tip===filter);
+  $("#grid").innerHTML=list.length?list.map(u=>{
+    const st=status[u.id],save=u.lista-u.nou,pct=Math.round(save/u.lista*100);
+    return `<article class="unit">
+      <button class="plan" type="button" data-plan="${u.id}" aria-label="Mărește planul ${u.tip}, bloc ${u.bloc}, ap. ${u.ap}"><img src="${planSrc(u)}" alt="Plan ${u.tip} bloc ${u.bloc} ap. ${u.ap}, din releveu" loading="lazy">
+        <span class="status ${st}">${STATUS_LABEL[st]}</span>
+        <span class="ph"><span>Plan din releveu</span><span>Mărește ⤢</span></span></button>
+      <div class="body">
+        <div class="head"><h3>${u.tip}</h3><span class="code mono">Bloc ${u.bloc} · Ap. ${u.ap} · ${u.etaj}</span></div>
+        <div class="extra">${u.rooms}</div>${u.perk?`<div class="perk">${u.perk}</div>`:""}
+        <dl class="specs">
+          <div><dt>Utilă</dt><dd>${m2(u.util)} m²</dd></div>
+          <div><dt>${u.extL}</dt><dd>${u.ext} m²</dd></div>
+          <div><dt>Utilă totală</dt><dd>${m2(u.total)} m²</dd></div>
+          <div><dt>Construită</dt><dd>${m2(u.constr)} m²</dd></div>
+        </dl>
+        <div class="price">
+          <span class="old">${eur(u.lista)}</span>
+          <span class="new">${eur(u.nou)}</span>
+          <span class="save">−${pct}%<br>${eur(save)}</span>
+          <span class="vat">Cu TVA 21%: <b>${eur(u.nou*1.21)}</b></span>
+          <span class="note mono">Prețuri fără TVA · ${eur(u.nou/u.util)} / m² util</span>
+        </div>
+        <button class="cta" type="button" data-book="${u.id}" ${st==="vandut"?"disabled":""}>${st==="vandut"?"Vândut":st==="rezervat"?"Intră pe lista de așteptare":"Programează vizionare"}</button>
+      </div></article>`}).join(""):`<div class="empty">Nicio unitate de acest tip în stoc.</div>`;
+}
+
+function renderSelect(){
+  const sel=$("#unitate"),cur=sel.value;
+  sel.innerHTML='<option value="">Alege unitatea</option>'+UNITS.filter(u=>status[u.id]!=="vandut").map(u=>`<option value="${u.id}">${u.tip} · Bloc ${u.bloc}, ap. ${u.ap} · ${eur(u.nou)} + TVA</option>`).join("");
+  if([...sel.options].some(o=>o.value===cur))sel.value=cur;
+}
+function openPlan(u){
+  if(!u)return;const d=$("#lb");
+  $("#lbT").textContent=`${u.tip} · Bloc ${u.bloc}, ap. ${u.ap} · ${u.etaj}${u.perk?" · "+u.perk:""}`;
+  $("#lbImg").src=planSrc(u);$("#lbImg").alt="Plan "+$("#lbT").textContent;
+  $("#lbLeg").innerHTML=u.legend.split(" · ").map(x=>{const m=x.match(/^(\d+) (.+) ([\d,]+)$/);return m?`<li><b>${m[1]}</b>${m[2]} ${m[3]} m²</li>`:`<li>${x}</li>`}).join("");
+  try{d.showModal()}catch(_){d.setAttribute("open","")}
+}
+$("#lbX").addEventListener("click",()=>$("#lb").close());
+$("#lb").addEventListener("click",e=>{if(e.target.id==="lb")$("#lb").close()});
+function renderAll(){renderTotals();renderGrid();renderSelect();renderStockEdit()}
+(function(){const now=new Date(),start=new Date(2026,10,9),end=new Date(2026,11,18,23,59,59),d=Math.ceil((end-now)/864e5),z=n=>`${n}${n%100>=20||n%100===0?" de":""} zile`;$("#daysLeft").textContent=now<start?"începe pe 9 noiembrie":d>1?`încă ${z(d)}`:d===1?"ultima zi":"ofertă încheiată"})();
+
+document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{
+  filter=b.dataset.f;document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b));renderGrid();
+}));
+$("#grid").addEventListener("click",e=>{
+  const pl=e.target.closest("[data-plan]");
+  if(pl){openPlan(UNITS.find(u=>u.id===pl.dataset.plan));return}
+  const b=e.target.closest("[data-book]");if(!b)return;
+  $("#unitate").value=b.dataset.book;$("#programare").scrollIntoView({behavior:"smooth"});$("#nume").focus({preventScroll:true});
+});
+(function(){const d=new Date();d.setDate(d.getDate()+1);$("#data").min=d.toISOString().slice(0,10)})();
+
+/* ===== DE COMPLETAT LA PUNEREA PE SITE =====
+   STOC: schimbă statusul unei unități în "rezervat" sau "vandut"; contorul și cardurile se actualizează.
+   FORM_ENDPOINT: adresa (URL) unde site-ul primește cererile de vizionare, ca POST cu JSON.
+   Cât timp e gol, pagina arată doar panoul „Sună-ne” în locul formularului. */
+const STOC={"A4-6":"disponibil","A4-7":"disponibil","A4-405":"disponibil","A4-406":"disponibil","A4-702":"disponibil","A5-8":"disponibil","A5-7":"disponibil","A5-405":"disponibil"};
+const FORM_ENDPOINT="";
+/* ============================================ */
+
+Object.keys(STOC).forEach(k=>{if(status[k]!==undefined&&STATUS_LABEL[STOC[k]])status[k]=STOC[k]});
+function renderStockEdit(){}
+function showMsg(t,kind){const m=$("#msg");m.textContent=t;m.className="msg "+kind;m.hidden=false}
+if(FORM_ENDPOINT){$("#form").hidden=false;$("#contactSmall").hidden=false;$("#callPanel").hidden=true}
+
+$("#form").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const f=e.target,v=id=>f.querySelector("#"+id).value.trim();
+  if(!v("nume")||v("telefon").replace(/\D/g,"").length<9||!v("unitate")||!v("data")||!$("#gdpr").checked){
+    showMsg("Completează numele, un telefon valid, unitatea, data și bifează acordul.","err");return;
+  }
+  $("#send").disabled=true;
+  try{
+    const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nume:v("nume"),telefon:v("telefon"),email:v("email"),unitate:v("unitate"),data:v("data"),interval:v("interval"),mesaj:v("mesaj"),primita:new Date().toISOString()})});
+    if(!r.ok)throw new Error(r.status);
+    f.reset();renderSelect();
+    showMsg("Cererea a fost înregistrată. Te sunăm pentru confirmarea orei.","ok");
+  }catch(err){
+    showMsg("Cererea nu s-a putut trimite. Sună-ne la 0721 230 742 și programăm vizionarea la telefon.","err");
+  }finally{$("#send").disabled=false}
+});
+
+renderAll();
+
+/* Ambient lake ripples in the hero */
+(function(){
+  const c=$("#water");if(!c||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const x=c.getContext("2d");let w,h,t=0;
+  function size(){w=c.width=c.offsetWidth*devicePixelRatio;h=c.height=c.offsetHeight*devicePixelRatio}
+  size();addEventListener("resize",size);
+  (function draw(){
+    x.clearRect(0,0,w,h);x.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--reed").trim()||"#b88a3e";x.globalAlpha=.35;x.lineWidth=devicePixelRatio;
+    for(let i=0;i<14;i++){const y=h*(.35+i*.05);x.beginPath();
+      for(let px=0;px<=w;px+=8*devicePixelRatio){x.lineTo(px,y+Math.sin(px/(90*devicePixelRatio)+t+i*.7)*(3+i*.6)*devicePixelRatio)}x.stroke()}
+    t+=.008;requestAnimationFrame(draw);
+  })();
+})();
+</script>
+</body>
+</html>
