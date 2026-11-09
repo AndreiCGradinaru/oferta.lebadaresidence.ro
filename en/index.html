@@ -254,6 +254,7 @@ footer .legal{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:center;gap
           <select id="interval" name="interval"><option>10:00 – 12:00</option><option>12:00 – 14:00</option><option>14:00 – 16:00</option><option>16:00 – 18:00</option><option>Saturday, any time</option></select></div>
         <div class="f full"><label for="mesaj">Questions (optional)</label><textarea id="mesaj" name="mesaj" placeholder="For example: financing, parking, move-in date"></textarea></div>
         <label class="check"><input id="gdpr" type="checkbox" required> I agree to be contacted to arrange the viewing. My details are used only for this purpose.</label>
+        <input type="text" name="_honey" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
         <button class="cta" type="submit" id="send" style="grid-column:1/-1">Send viewing request</button>
         <div class="msg" id="msg" hidden></div>
       </form>
@@ -369,10 +370,10 @@ $("#grid").addEventListener("click",e=>{
 
 /* ===== DE COMPLETAT LA PUNEREA PE SITE =====
    STOC: schimbă statusul unei unități în "rezervat" sau "vandut"; contorul și cardurile se actualizează.
-   FORM_ENDPOINT: adresa (URL) unde site-ul primește cererile de vizionare, ca POST cu JSON.
+   FORM_ENDPOINT: adresa FormSubmit care trimite cererile pe e-mail (sales@lebadaresidence.ro) și răspunsul automat către client.
    Cât timp e gol, pagina arată doar panoul „Sună-ne” în locul formularului. */
 const STOC={"A4-6":"disponibil","A4-7":"disponibil","A4-405":"disponibil","A4-406":"disponibil","A4-702":"disponibil","A5-8":"disponibil","A5-7":"disponibil","A5-405":"disponibil"};
-const FORM_ENDPOINT="";
+const FORM_ENDPOINT="https://formsubmit.co/ajax/sales@lebadaresidence.ro";
 /* ============================================ */
 
 Object.keys(STOC).forEach(k=>{if(status[k]!==undefined&&STATUS_LABEL[STOC[k]])status[k]=STOC[k]});
@@ -388,8 +389,26 @@ $("#form").addEventListener("submit",async e=>{
   }
   $("#send").disabled=true;
   try{
-    const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nume:v("nume"),telefon:v("telefon"),email:v("email"),unitate:v("unitate"),data:v("data"),interval:v("interval"),mesaj:v("mesaj"),primita:new Date().toISOString()})});
-    if(!r.ok)throw new Error(r.status);
+    const u=UNITS.find(x=>x.id===v("unitate")),unit=u?`${u.tip} · Building ${u.bloc}, apt. ${u.ap} · ${eur(u.nou)} + VAT`:v("unitate");
+    const dt=v("data").split("-").reverse().join("/");
+    const reply=`Hello ${v("nume")},
+
+Thank you for getting in touch. We have received your viewing request for ${unit.split(" · ").slice(0,2).join(" · ")}, on your preferred date ${dt}, between ${v("interval")}.
+
+We will call you on the number you gave us to confirm the day and time. If you would like to talk sooner, call us on +40 721 230 742.
+
+In the meantime, you can review the floor plans and prices of all 8 units at https://oferta.lebadaresidence.ro/en/. The offer is valid from 11 November to 18 December 2026, while stock lasts.
+
+Kind regards,
+Andrei Grădinaru
+Lebada Lake Residence · Pantelimon, Romania
++40 721 230 742 · www.lebadaresidence.ro`;
+    const lead={"Nume":v("nume"),"Telefon":v("telefon"),"email":v("email"),"Unitate":unit,"Data preferată":dt,"Interval":v("interval"),"Întrebări":v("mesaj")||"–","Pagina":"oferta.lebadaresidence.ro/en (EN)",
+      _subject:`Cerere vizionare (EN): ${u?u.bloc+" ap. "+u.ap:v("unitate")} – ${v("nume")}`,_template:"table",_captcha:"false",_honey:$("#hp").value};
+    if(v("email")){lead._replyto=v("email");lead._autoresponse=reply}
+    const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(lead)});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok||String(j.success)!=="true")throw new Error(j.message||r.status);
     f.reset();renderSelect();
     showMsg("Your request has been received. We will call you to confirm the time.","ok");
   }catch(err){
