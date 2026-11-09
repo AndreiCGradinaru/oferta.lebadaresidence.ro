@@ -345,7 +345,7 @@ function openPlan(u){
 $("#lbX").addEventListener("click",()=>$("#lb").close());
 $("#lb").addEventListener("click",e=>{if(e.target.id==="lb")$("#lb").close()});
 function renderAll(){renderTotals();renderGrid();renderSelect();renderStockEdit()}
-(function(){const now=new Date(),start=new Date(2026,10,11),end=new Date(2026,11,18,23,59,59),d=Math.ceil((end-now)/864e5),z=n=>`${n}${n%100>=20||n%100===0?" de":""} zile`;$("#daysLeft").textContent=now<start?"începe pe 11 noiembrie":d>1?`încă ${z(d)}`:d===1?"ultima zi":"ofertă încheiată"})();
+(function(){const now=new Date(),start=new Date(2026,10,11,11,11),end=new Date(2026,11,18,23,59,59),d=Math.ceil((end-now)/864e5),z=n=>`${n}${n%100>=20||n%100===0?" de":""} zile`;$("#daysLeft").textContent=now<start?"începe pe 11.11, ora 11:11":d>1?`încă ${z(d)}`:d===1?"ultima zi":"ofertă încheiată"})();
 
 document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{
   filter=b.dataset.f;document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b));renderGrid();
