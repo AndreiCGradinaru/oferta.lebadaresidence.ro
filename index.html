@@ -324,7 +324,7 @@ function renderGrid(){
           <span class="new">${eur(u.nou)}</span>
           <span class="save">−${pct}%<br>${eur(save)}</span>
           <span class="vat">Cu TVA 21%: <b>${eur(u.nou*1.21)}</b></span>
-          <span class="note mono">Prețuri fără TVA · ${eur(u.nou/u.util)} / m² util</span>
+          <span class="note mono">Prețuri fără TVA</span>
         </div>
         <button class="cta" type="button" data-book="${u.id}" ${st==="vandut"?"disabled":""}>${st==="vandut"?"Vândut":st==="rezervat"?"Intră pe lista de așteptare":"Programează vizionare"}</button>
       </div></article>`}).join(""):`<div class="empty">Nicio unitate de acest tip în stoc.</div>`;
