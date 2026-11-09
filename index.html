@@ -397,16 +397,19 @@ $("#form").addEventListener("submit",async e=>{
     const dt=v("data").split("-").reverse().join(".");
     const reply=`Bună, ${v("nume")},
 
-Îți mulțumim că ne-ai scris. Am primit cererea ta de vizionare pentru ${unit.split(" · ").slice(0,2).join(" · ")}, cu data preferată ${dt}, în intervalul ${v("interval")}.
+Ne bucurăm că vrei să vii să vezi ansamblul nostru! Cererea ta a ajuns la noi și te sunăm în curând ca să stabilim ora exactă pentru ${dt}.
 
-Te sunăm noi la numărul lăsat în formular ca să confirmăm ziua și ora. Dacă vrei să vorbim mai repede, ne găsești la 0721 230 742.
+Ce te așteaptă la vizionare:
+• Un apartament aflat într-unul din primele 2 blocuri predate, A4 și A5;
+• Prezentarea completă în PDF, cu planul din releveu și prețul final cu TVA.
+• Răspunsuri pe loc la întrebările despre plată, loc de parcare și boxă.
 
-Până atunci, poți revedea planurile și prețurile celor 8 unități pe https://oferta.lebadaresidence.ro. Oferta e valabilă între 11 noiembrie și 18 decembrie 2026, în limita stocului.
+Merită să nu amâni: ${unit.split(" · ").slice(0,2).join(" · ")} face parte din ultimele 8 locuințe din blocurile A4 și A5, cu prețuri reduse cu până la 17%. Oferta e valabilă doar până pe 18 decembrie 2026, în limita stocului, iar fiecare unitate există într-un singur exemplar.
 
-Pe curând,
-Andrei Grădinaru
-Lebada Lake Residence · Pantelimon
-0721 230 742 · www.lebadaresidence.ro`;
+Vrei să vorbim mai repede? Sună-ne la 0721 230 742.
+
+Ne vedem la Lebăda,
+Andrei Grădinaru`;
     const lead={"Nume":v("nume"),"Telefon":v("telefon"),"email":v("email"),"Unitate":unit,"Data preferată":dt,"Interval":v("interval"),"Întrebări":v("mesaj")||"–","Pagina":"oferta.lebadaresidence.ro (RO)",
       _subject:`Cerere vizionare: ${u?u.bloc+" ap. "+u.ap:v("unitate")} – ${v("nume")}`,_template:"table",_captcha:"false",_honey:$("#hp").value};
     if(v("email")){lead._replyto=v("email");lead._autoresponse=reply}
