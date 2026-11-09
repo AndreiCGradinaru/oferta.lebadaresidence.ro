@@ -14,5 +14,5 @@ Căutați blocul `DE COMPLETAT LA PUNEREA PE SITE` din script:
 
 ## De știut
 - Prețurile sunt în euro, fără TVA. Prețul cu TVA 21% e calculat pe fiecare card.
-- Perioada ofertei e 09.11.2026 – 18.12.2026, iar contorul de zile se calculează automat.
+- Perioada ofertei e 11.11.2026 – 18.12.2026, iar contorul de zile se calculează automat.
 - Pentru Facebook se poate adăuga în `<head>` o imagine de previzualizare (`og:image`).
