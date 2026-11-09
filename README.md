@@ -16,3 +16,5 @@ Căutați blocul `DE COMPLETAT LA PUNEREA PE SITE` din script:
 - Prețurile sunt în euro, fără TVA. Prețul cu TVA 21% e calculat pe fiecare card.
 - Perioada ofertei e 11.11.2026 – 18.12.2026, iar contorul de zile se calculează automat.
 - Pentru Facebook se poate adăuga în `<head>` o imagine de previzualizare (`og:image`).
+
+- Versiunea în engleză („The Last 8 Jewels”) e în `en/index.html`, la https://oferta.lebadaresidence.ro/en/. Dacă schimbi ceva în `index.html`, actualizează și varianta în engleză.

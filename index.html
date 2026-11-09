@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Ultimele 8 locuințe · Lebada Lake Residence</title>
 <meta name="description" content="Ultimele 8 locuințe din blocurile A4 și A5, Lebada Lake Residence, Pantelimon. Prețuri reduse de la 65.000 € + TVA, ofertă valabilă 11 noiembrie – 18 decembrie 2026.">
+<link rel="alternate" hreflang="ro" href="https://oferta.lebadaresidence.ro/">
+<link rel="alternate" hreflang="en" href="https://oferta.lebadaresidence.ro/en/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ultimele 8 locuințe la Lebada Lake Residence">
 <meta property="og:description" content="Ultimele 8 locuințe din blocurile A4 și A5, Lebada Lake Residence, Pantelimon. Prețuri reduse de la 65.000 € + TVA, ofertă valabilă 11 noiembrie – 18 decembrie 2026.">
@@ -103,10 +105,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 .price{background:var(--reed-soft);padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:baseline}
 .price .old{color:var(--muted);text-decoration:line-through;font:400 15px var(--f-mono)}
 .price .new{font:500 30px/1 var(--f-display);grid-column:1}
-.price .save{grid-column:2;grid-row:1/3;align-self:center;font:600 13px var(--f-body);color:var(--reed);border:1px solid var(--reed);padding:6px 10px;text-align:center;line-height:1.25}
-.price .note{grid-column:1/-1;font-size:12px;color:var(--muted)}
+.price .save{grid-column:2;grid-row:2/4;align-self:center;font:600 13px var(--f-body);color:var(--reed);border:1px solid var(--reed);padding:6px 10px;text-align:center;line-height:1.25}
+.price .note{grid-column:1/-1;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .price .vat{grid-column:1/-1;font-size:15px;padding-top:6px;border-top:1px solid color-mix(in srgb,var(--reed) 35%,transparent);margin-top:4px}
 .price .vat b{font:500 17px var(--f-mono);font-variant-numeric:tabular-nums}
+.lang{position:absolute;top:14px;right:16px;z-index:2;color:inherit;font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid currentColor;padding:5px 10px;opacity:.85}.lang:hover{opacity:1}
 .cta{border:0;background:var(--ink);color:var(--bg);padding:12px 16px;font-weight:600;cursor:pointer;width:100%}
 .cta:hover{background:var(--lake);color:var(--lake-ink)}
 .cta[disabled]{background:var(--line);color:var(--muted);cursor:not-allowed}
@@ -178,12 +181,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 2
   <canvas id="water" aria-hidden="true"></canvas>
   <div class="wrap">
     <div>
+      <a class="lang" href="en/" hreflang="en" lang="en">English</a>
       <span class="eyebrow">Lebada Lake Residence · Pantelimon · Blocurile A4 și A5, finalizate</span>
       <h1>Ultimele <em>8</em> locuințe din primele două blocuri</h1>
       <p class="lede">Clădiri gata, apartamente de văzut pe loc. Am redus prețul la toate unitățile rămase, de la garsonieră la penthouse-ul de la etajul 7 cu terasă de 118 m².</p>
       <div class="deadline"><span>Ofertă valabilă <strong>11 noiembrie – 18 decembrie 2026</strong></span><b id="daysLeft"></b></div>
       <div class="totals">
-        <div><span>Reducere medie</span><b id="tAvg">−14%</b></div>
+        <div><span>Reducere</span><b id="tAvg">12–17%</b></div>
         <div><span>Economie maximă</span><b id="tMax">€69.000</b></div>
         <div><span>Preț de la</span><b id="tFrom">€65.000</b></div>
       </div>
@@ -294,7 +298,7 @@ function renderTotals(){
   const avail=UNITS.filter(u=>status[u.id]!=="vandut");
   const pool=avail.length?avail:UNITS;
   const sumL=pool.reduce((a,u)=>a+u.lista,0),sumN=pool.reduce((a,u)=>a+u.nou,0);
-  $("#tAvg").textContent="−"+Math.round((1-sumN/sumL)*100)+"%";
+  {const p=pool.map(u=>Math.round((1-u.nou/u.lista)*100)),lo=Math.min(...p),hi=Math.max(...p);$("#tAvg").textContent=lo===hi?lo+"%":lo+"–"+hi+"%";}
   $("#tMax").textContent=eur(Math.max(...pool.map(u=>u.lista-u.nou)));
   $("#tFrom").textContent=eur(Math.min(...pool.map(u=>u.nou)));
   const n=UNITS.filter(u=>status[u.id]==="disponibil").length;
@@ -320,11 +324,11 @@ function renderGrid(){
           <div><dt>Construită</dt><dd>${m2(u.constr)} m²</dd></div>
         </dl>
         <div class="price">
+          <span class="note mono">Preț fără TVA</span>
           <span class="old">${eur(u.lista)}</span>
           <span class="new">${eur(u.nou)}</span>
           <span class="save">−${pct}%<br>${eur(save)}</span>
           <span class="vat">Cu TVA 21%: <b>${eur(u.nou*1.21)}</b></span>
-          <span class="note mono">Prețuri fără TVA</span>
         </div>
         <button class="cta" type="button" data-book="${u.id}" ${st==="vandut"?"disabled":""}>${st==="vandut"?"Vândut":st==="rezervat"?"Intră pe lista de așteptare":"Programează vizionare"}</button>
       </div></article>`}).join(""):`<div class="empty">Nicio unitate de acest tip în stoc.</div>`;
