@@ -157,7 +157,7 @@ th{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;col
 dialog.lb{border:0;padding:0;max-width:min(1100px,calc(100vw - 32px));width:100%;max-height:calc(100vh - 32px);background:var(--surface);color:var(--ink)}
 dialog.lb::backdrop{background:rgba(8,24,30,.7)}
 .lb .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 12px;padding:14px 18px;border-bottom:1px solid var(--line)}
-.lb h3{font-size:22px}
+.lb h3{font-size:22px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}.lb h3 b{font-weight:700;font-size:26px}.lb h3 span{font:500 15px var(--f-body);color:var(--reed)}
 .planbox{position:relative}.plan.is3d{padding:6px 6px 30px;background:#24474f}.plan.is3d img{object-fit:contain}
 .arr{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.94);color:#0f2a33;font:400 28px/1 var(--f-body);padding:0 0 3px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.28);display:grid;place-items:center}.arr:hover{background:#fff;transform:translateY(-50%) scale(1.06)}.arr.prev{left:10px}.arr.next{right:10px}.arr[hidden]{display:none}
 .lb .img{position:relative}.plan.is3d .ph{color:#e7f1f1}
@@ -336,7 +336,7 @@ function renderGrid(){
         <span class="status ${st}">${STATUS_LABEL[st]}</span>
         <span class="ph"><span>${is3d?"Schiță 3D":"Plan din releveu"}${u.v3d?(is3d?" · 1/2":" · 2/2"):""}</span><span>Mărește ⤢</span></span></button>${u.v3d?`<button class="arr prev" type="button" data-flip="${u.id}" aria-label="Imaginea anterioară">‹</button><button class="arr next" type="button" data-flip="${u.id}" aria-label="Imaginea următoare">›</button>`:""}`})()}</div>
       <div class="body">
-        <div class="head"><h3>${u.tip}</h3><span class="code mono">Bloc ${u.bloc} · Ap. ${u.ap} · ${u.etaj}</span></div>
+        <div class="head"><h3>Bloc ${u.bloc} · Ap. ${u.ap}</h3><span class="code mono">${u.tip} · ${u.etaj}</span></div>
         <div class="extra">${u.rooms}</div>${u.perk?`<div class="perk">${u.perk}</div>`:""}
         <dl class="specs">
           <div><dt>Utilă</dt><dd>${m2(u.util)} m²</dd></div>
@@ -370,7 +370,7 @@ function showView(v){
 }
 function openPlan(u){
   if(!u)return;const d=$("#lb");lbUnit=u;
-  $("#lbT").textContent=`${u.tip} · Bloc ${u.bloc}, ap. ${u.ap} · ${u.etaj}${u.perk?" · "+u.perk:""}`;
+  $("#lbT").innerHTML=`<b>Bloc ${u.bloc} · Ap. ${u.ap}</b><span>${u.tip} · ${u.etaj}${u.perk?" · "+u.perk:""}</span>`;
   $("#lbTabs").hidden=!u.v3d;$("#lbPrev").hidden=$("#lbNext").hidden=!u.v3d;showView(u.v3d&&view[u.id]!=="rel"?"3d":"rel");
   $("#lbLeg").innerHTML=u.legend.split(" · ").map(x=>{const m=x.match(/^(\d+) (.+) ([\d,]+)$/);return m?`<li><b>${m[1]}</b>${m[2]} ${m[3]} m²</li>`:`<li>${x}</li>`}).join("");
   try{d.showModal()}catch(_){d.setAttribute("open","")}
