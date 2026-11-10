@@ -412,6 +412,8 @@ $("#grid").addEventListener("click",e=>{
    Cât timp e gol, pagina arată doar panoul „Sună-ne” în locul formularului. */
 const STOC={"A4-6":"disponibil","A4-7":"disponibil","A4-405":"disponibil","A4-406":"disponibil","A4-702":"disponibil","A5-8":"disponibil","A5-7":"disponibil","A5-405":"disponibil"};
 const FORM_ENDPOINT="https://formsubmit.co/ajax/sales@lebadaresidence.ro";
+/* VAUNT: each request is also copied into VAUNT through a small PHP relay on lebadaresidence.ro (the API token stays on the server). Empty = off. */
+const VAUNT_RELAY="https://www.lebadaresidence.ro/vaunt-lead.php";
 /* ============================================ */
 
 Object.keys(STOC).forEach(k=>{if(status[k]!==undefined&&STATUS_LABEL[STOC[k]])status[k]=STOC[k]});
@@ -448,6 +450,7 @@ Andrei Grădinaru`;
     const lead={"Nume":v("nume"),"Telefon":v("telefon"),"email":v("email"),"Unitate":unit,"Data preferată":dt,"Interval":v("interval"),"Întrebări":v("mesaj")||"–","Pagina":"oferta.lebadaresidence.ro/en (EN)",
       _subject:`Cerere vizionare (EN): ${u?u.bloc+" ap. "+u.ap:v("unitate")} – ${v("nume")}`,_template:"table",_captcha:"false",_honey:$("#hp").value};
     if(v("email")){lead._replyto=v("email");lead._autoresponse=reply}
+    if(VAUNT_RELAY){try{const q=new URLSearchParams(location.search),vl={nume:v("nume"),telefon:v("telefon"),email:v("email"),unitate:unit,unitate_id:v("unitate"),data:dt,interval:v("interval"),mesaj:v("mesaj"),pagina:lead.Pagina,gdpr:$("#gdpr").checked,_honey:$("#hp").value,referrer_url:location.href};["utm_source","utm_medium","utm_campaign","utm_content","utm_term","gclid"].forEach(k=>{if(q.get(k))vl[k]=q.get(k)});fetch(VAUNT_RELAY,{method:"POST",mode:"cors",keepalive:true,headers:{"Content-Type":"application/json"},body:JSON.stringify(vl)}).catch(()=>{})}catch(_){}}
     const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(lead)});
     const j=await r.json().catch(()=>({}));
     if(!r.ok||String(j.success)!=="true")throw new Error(j.message||r.status);
