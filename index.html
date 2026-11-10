@@ -413,7 +413,7 @@ $("#grid").addEventListener("click",e=>{
 const STOC={"A4-6":"disponibil","A4-7":"disponibil","A4-405":"disponibil","A4-406":"disponibil","A4-702":"disponibil","A5-8":"disponibil","A5-7":"disponibil","A5-405":"disponibil"};
 const FORM_ENDPOINT="https://formsubmit.co/ajax/sales@lebadaresidence.ro";
 /* VAUNT: each request is also copied into VAUNT through a small PHP relay on lebadaresidence.ro (the API token stays on the server). Empty = off. */
-const VAUNT_RELAY="https://www.lebadaresidence.ro/vaunt-lead.php";
+const VAUNT_RELAY="https://lebadaresidence.ro/vaunt-lead.php";
 /* ============================================ */
 
 Object.keys(STOC).forEach(k=>{if(status[k]!==undefined&&STATUS_LABEL[STOC[k]])status[k]=STOC[k]});
