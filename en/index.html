@@ -300,7 +300,7 @@ const UNITS=[
    legend:"1 Living room 29.0 · 2 Kitchen 11.8 · 3 Entrance hall 9.0 · 4 Bedroom 9.8 · 5 Bedroom 10.2 · 6 Hallway 5.6 · 7 Guest WC 2.2 · 8 Bathroom 4.8 · 9 Bathroom 5.9 · 10 Walk-in closet 4.3 · 11 Bedroom 22.1 · 12 Office 9.7 · 13 Terrace 118.0"},
   {id:"A5-8",bloc:"A5",ap:"8",tip:"Studio",etaj:"Ground floor",util:32.5,ext:"10.1",extL:"Garden",total:42.6,constr:50.4,lista:75000,nou:65000,v3d:1,rooms:"23.2 m² living room · private garden",
    legend:"1 Hallway 2.5 · 2 Kitchen 2.5 · 3 Living room 23.2 · 4 Bathroom 4.3 · 5 Garden 10.1"},
-  {id:"A5-7",bloc:"A5",ap:"7",tip:"3-room apartment",etaj:"Ground floor",util:74.4,ext:"41.0",extL:"Terrace",total:115.4,constr:133.3,lista:210000,nou:185000,v3d:1,foto:["A5-7-1"],rooms:"2 bedrooms · 2 bathrooms · 41 m² terrace",
+  {id:"A5-7",bloc:"A5",ap:"7",tip:"3-room apartment",etaj:"Ground floor",util:74.4,ext:"41.0",extL:"Terrace",total:115.4,constr:133.3,lista:210000,nou:185000,v3d:1,foto:["A5-7-1"],fotoFirst:1,rooms:"2 bedrooms · 2 bathrooms · 41 m² terrace",
    legend:"1 Hallway 11.2 · 2 Bathroom 2.6 · 3 Kitchen 6.8 · 4 Living room 23.9 · 5 Bedroom 12.1 · 6 Bedroom 13.3 · 7 Bathroom 4.5 · 8 Terrace 41.0"},
   {id:"A5-405",bloc:"A5",ap:"405",tip:"Penthouse",etaj:"Floor 4",util:71.7,ext:"101.1",extL:"Terrace",total:172.8,constr:193.0,lista:300000,nou:250000,v3d:1,rooms:"2 bedrooms · 2 bathrooms · 101 m² terrace",
    legend:"1 Hallway 8.1 · 2 Bathroom 2.9 · 3 Bathroom 4.9 · 4 Bedroom 13.6 · 5 Bedroom 11.9 · 6 Living room 21.9 · 7 Kitchen 8.4 · 8 Terrace 101.1"}
@@ -316,9 +316,9 @@ const planSrc=u=>"../planuri/"+u.id+".jpg";
 const view={};
 const p3dSrc=(u,card)=>"../planuri-3d/"+u.id+(card?"-card":"")+".jpg";
 const fotoSrc=(f,card)=>"../foto/"+f+(card?"-card":"")+".jpg";
-const SL={"3d":"3D plan","rel":"Cadastral survey plan","foto":"Photo"};
+const SL={"3d":"3D plan","rel":"Cadastral survey plan","foto":"Actual photo"};
 /* Slides per unit: 3D plan (if any), cadastral plan, then interior photos (if any) */
-const slides=u=>{const a=[];if(u.v3d)a.push({k:"3d",card:p3dSrc(u,1),full:p3dSrc(u,0)});a.push({k:"rel",card:planSrc(u),full:planSrc(u)});(u.foto||[]).forEach(f=>a.push({k:"foto",card:fotoSrc(f,1),full:fotoSrc(f,0)}));return a};
+const slides=u=>{const a=[],ph=(u.foto||[]).map(f=>({k:"foto",card:fotoSrc(f,1),full:fotoSrc(f,0)}));if(u.fotoFirst)a.push(...ph);if(u.v3d)a.push({k:"3d",card:p3dSrc(u,1),full:p3dSrc(u,0)});a.push({k:"rel",card:planSrc(u),full:planSrc(u)});if(!u.fotoFirst)a.push(...ph);return a};
 const curIdx=u=>{const n=slides(u).length;return Math.min(view[u.id]||0,n-1)};
 const m2=n=>n.toFixed(1);
 
