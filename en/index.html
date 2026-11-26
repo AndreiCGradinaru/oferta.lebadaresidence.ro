@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The Last 8 Jewels · Lebada Lake Residence</title>
-<meta name="description" content="The last 8 homes in buildings A4 and A5, Lebada Lake Residence, Pantelimon. Reduced prices from €65,000 + VAT, offer valid 11 November – 18 December 2026.">
+<meta name="description" content="The last 8 homes in buildings A4 and A5, Lebada Lake Residence, Pantelimon. Reduced prices from €185,000 + VAT, offer valid 11 November – 18 December 2026.">
 <link rel="alternate" hreflang="ro" href="https://oferta.lebadaresidence.ro/">
 <link rel="alternate" hreflang="en" href="https://oferta.lebadaresidence.ro/en/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Last 8 Jewels · Lebada Lake Residence">
-<meta property="og:description" content="The last 8 homes in buildings A4 and A5, Lebada Lake Residence, Pantelimon. Reduced prices from €65,000 + VAT, offer valid 11 November – 18 December 2026.">
+<meta property="og:description" content="The last 8 homes in buildings A4 and A5, Lebada Lake Residence, Pantelimon. Reduced prices from €185,000 + VAT, offer valid 11 November – 18 December 2026.">
 <meta property="og:locale" content="en_GB">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -205,12 +205,12 @@ footer .legal{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:center;gap
       <div class="totals">
         <div><span>Discount</span><b id="tAvg">12–17%</b></div>
         <div><span>Biggest saving</span><b id="tMax">€69,000</b></div>
-        <div><span>Prices from</span><b id="tFrom">€65,000</b></div>
+        <div><span>Prices from</span><b id="tFrom">€185,000</b></div>
       </div>
     </div>
     <div class="gauge" aria-live="polite">
       <span class="eyebrow">Units left</span>
-      <div class="count"><span id="cAvail">8</span><small>of 8 available</small></div>
+      <div class="count"><span id="cAvail">7</span><small>of 8 available</small></div>
       <div class="slots" id="slots"></div>
       <div class="legend"><span><i></i>Available</span><span><i class="r"></i>Reserved</span><span><i class="v"></i>Sold</span></div>
     </div>
@@ -323,7 +323,7 @@ const curIdx=u=>{const n=slides(u).length;return Math.min(view[u.id]||0,n-1)};
 const m2=n=>n.toFixed(1);
 
 function renderTotals(){
-  const avail=UNITS.filter(u=>status[u.id]!=="vandut");
+  const avail=UNITS.filter(u=>status[u.id]==="disponibil");
   const pool=avail.length?avail:UNITS;
   const sumL=pool.reduce((a,u)=>a+u.lista,0),sumN=pool.reduce((a,u)=>a+u.nou,0);
   {const p=pool.map(u=>Math.round((1-u.nou/u.lista)*100)),lo=Math.min(...p),hi=Math.max(...p);$("#tAvg").textContent=lo===hi?lo+"%":lo+"–"+hi+"%";}
@@ -410,7 +410,7 @@ $("#grid").addEventListener("click",e=>{
    STOC: schimbă statusul unei unități în "rezervat" sau "vandut"; contorul și cardurile se actualizează.
    FORM_ENDPOINT: adresa FormSubmit care trimite cererile pe e-mail (sales@lebadaresidence.ro) și răspunsul automat către client.
    Cât timp e gol, pagina arată doar panoul „Sună-ne” în locul formularului. */
-const STOC={"A4-6":"disponibil","A4-7":"disponibil","A4-405":"disponibil","A4-406":"disponibil","A4-702":"disponibil","A5-8":"disponibil","A5-7":"disponibil","A5-405":"disponibil"};
+const STOC={"A4-6":"disponibil","A4-7":"disponibil","A4-405":"disponibil","A4-406":"disponibil","A4-702":"disponibil","A5-8":"rezervat","A5-7":"disponibil","A5-405":"disponibil"};
 const FORM_ENDPOINT="https://formsubmit.co/ajax/sales@lebadaresidence.ro";
 /* VAUNT: each request is also copied into VAUNT through a small PHP relay on lebadaresidence.ro (the API token stays on the server). Empty = off. */
 const VAUNT_RELAY="https://lebadaresidence.ro/vaunt-lead.php";
