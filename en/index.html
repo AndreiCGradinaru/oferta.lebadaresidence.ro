@@ -86,6 +86,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* Units */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;padding-bottom:48px}
 .unit{background:var(--surface);border:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;min-width:0}
+.unit.off{position:relative;overflow:hidden}
+.unit.off>.planbox,.unit.off>.body{filter:blur(2px) grayscale(.35);opacity:.55;pointer-events:none;user-select:none}
+.unit .stamp{position:absolute;left:50%;top:150px;transform:translate(-50%,-50%) rotate(-12deg);z-index:5;pointer-events:none;font:700 clamp(34px,7vw,52px)/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--warn);background:color-mix(in srgb,var(--surface) 88%,transparent);border:5px solid currentColor;padding:14px 26px;white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.unit .stamp.vandut{color:var(--sold)}
 .plan{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;background:#fff;border:0;border-bottom:1px solid var(--line);padding:0;margin:0;display:block;cursor:zoom-in;--pt:36px;--px:12px;--pb:30px}
 .plan img{position:absolute;top:var(--pt);left:var(--px);width:calc(100% - 2*var(--px));height:calc(100% - var(--pt) - var(--pb));object-fit:contain;display:block;max-width:none}
 .plan .ph{position:absolute;left:12px;bottom:8px;right:12px;display:flex;justify-content:space-between;gap:8px;font:500 11px/1.3 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:#3d5a63}
@@ -338,7 +342,7 @@ function renderGrid(){
   const list=UNITS.filter(u=>filter==="all"||u.tip===filter);
   $("#grid").innerHTML=list.length?list.map(u=>{
     const st=status[u.id],save=u.lista-u.nou,pct=Math.round(save/u.lista*100);
-    return `<article class="unit">
+    return `<article class="unit${st!=="disponibil"?" off":""}">
       <div class="planbox">${(()=>{const sl=slides(u),n=sl.length,i=curIdx(u),c=sl[i];return `<button class="plan${c.k==="3d"?" is3d":c.k==="foto"?" isfoto":""}" type="button" data-plan="${u.id}" aria-label="Enlarge the floor plan of ${u.tip}, building ${u.bloc}, apt. ${u.ap}"><img src="${c.card}" alt="${SL[c.k]}: ${u.tip} bloc ${u.bloc} ap. ${u.ap}" loading="lazy">
         <span class="status ${st}">${STATUS_LABEL[st]}</span>
         <span class="ph"><span>${SL[c.k]}${n>1?" · "+(i+1)+"/"+n:""}</span><span>Enlarge ⤢</span></span></button>${n>1?`<button class="arr prev" type="button" data-flip="${u.id}" aria-label="Previous image">‹</button><button class="arr next" type="button" data-flip="${u.id}" aria-label="Next image">›</button>`:""}`})()}</div>
@@ -359,7 +363,7 @@ function renderGrid(){
           <span class="vat">Incl. 21% VAT: <b>${eur(u.nou*1.21)}</b></span>
         </div>
         <button class="cta" type="button" data-book="${u.id}" ${st!=="disponibil"?"disabled":""}>${st==="vandut"?"Sold":st==="rezervat"?"Reserved":"Book a viewing"}</button>
-      </div></article>`}).join(""):`<div class="empty">No units of this type left.</div>`;
+      </div>${st!=="disponibil"?`<div class="stamp ${st}" aria-hidden="true">${STATUS_LABEL[st]}</div>`:""}</article>`}).join(""):`<div class="empty">No units of this type left.</div>`;
 }
 
 function renderSelect(){
