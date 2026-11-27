@@ -358,13 +358,13 @@ function renderGrid(){
           <span class="save">−${pct}%<br>${eur(save)}</span>
           <span class="vat">Cu TVA 21%: <b>${eur(u.nou*1.21)}</b></span>
         </div>
-        <button class="cta" type="button" data-book="${u.id}" ${st==="vandut"?"disabled":""}>${st==="vandut"?"Vândut":st==="rezervat"?"Intră pe lista de așteptare":"Programează vizionare"}</button>
+        <button class="cta" type="button" data-book="${u.id}" ${st!=="disponibil"?"disabled":""}>${st==="vandut"?"Vândut":st==="rezervat"?"Rezervat":"Programează vizionare"}</button>
       </div></article>`}).join(""):`<div class="empty">Nicio unitate de acest tip în stoc.</div>`;
 }
 
 function renderSelect(){
   const sel=$("#unitate"),cur=sel.value;
-  sel.innerHTML='<option value="">Alege unitatea</option>'+UNITS.filter(u=>status[u.id]!=="vandut").map(u=>`<option value="${u.id}">${u.tip} · Bloc ${u.bloc}, ap. ${u.ap} · ${eur(u.nou)} + TVA</option>`).join("");
+  sel.innerHTML='<option value="">Alege unitatea</option>'+UNITS.filter(u=>status[u.id]==="disponibil").map(u=>`<option value="${u.id}">${u.tip} · Bloc ${u.bloc}, ap. ${u.ap} · ${eur(u.nou)} + TVA</option>`).join("");
   if([...sel.options].some(o=>o.value===cur))sel.value=cur;
 }
 let lbUnit=null;
@@ -401,7 +401,7 @@ $("#grid").addEventListener("click",e=>{
   if(fl){const id=fl.dataset.flip,u=UNITS.find(x=>x.id===id),n=slides(u).length;view[id]=(curIdx(u)+(fl.classList.contains("prev")?-1:1)+n)%n;renderGrid();const nb=document.querySelector(`[data-flip="${id}"].${fl.classList.contains("prev")?"prev":"next"}`);if(nb)nb.focus();return}
   const pl=e.target.closest("[data-plan]");
   if(pl){openPlan(UNITS.find(u=>u.id===pl.dataset.plan));return}
-  const b=e.target.closest("[data-book]");if(!b)return;
+  const b=e.target.closest("[data-book]");if(!b||b.disabled||status[b.dataset.book]!=="disponibil")return;
   $("#unitate").value=b.dataset.book;$("#programare").scrollIntoView({behavior:"smooth"});$("#nume").focus({preventScroll:true});
 });
 (function(){const d=new Date();d.setDate(d.getDate()+1);$("#data").min=d.toISOString().slice(0,10)})();
@@ -427,6 +427,7 @@ $("#form").addEventListener("submit",async e=>{
   if(!v("nume")||v("telefon").replace(/\D/g,"").length<9||!v("unitate")||!v("data")||!$("#gdpr").checked){
     showMsg("Completează numele, un telefon valid, unitatea, data și bifează acordul.","err");return;
   }
+  if(status[v("unitate")]!=="disponibil"){showMsg("Această unitate este rezervată. Alege altă unitate sau sună-ne la 0721 230 742.","err");renderSelect();return}
   $("#send").disabled=true;
   try{
     const u=UNITS.find(x=>x.id===v("unitate")),unit=u?`${u.tip} · Bloc ${u.bloc}, ap. ${u.ap} · ${eur(u.nou)} + TVA`:v("unitate");
